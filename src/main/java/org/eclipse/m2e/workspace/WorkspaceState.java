@@ -24,7 +24,7 @@ import org.apache.maven.artifact.Artifact;
  * @since 0.1
  */
 public class WorkspaceState {
-  public static final String SYSPROP_STATEFILE_LOCATION = "takari.workspace.state";
+  public static final String SYSPROP_STATEFILE_LOCATION = "m2e.workspace.state";
 
   private static Properties state;
 
