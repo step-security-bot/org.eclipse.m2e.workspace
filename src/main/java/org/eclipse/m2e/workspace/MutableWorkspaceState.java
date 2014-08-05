@@ -50,7 +50,14 @@ public class MutableWorkspaceState {
       throw new IOException("Could not create directory " + dir);
     }
     try (OutputStream os = new BufferedOutputStream(new FileOutputStream(file))) {
-      state.store(os, null);
+      store(os);
     }
+  }
+
+  /**
+   * @since 0.2
+   */
+  public void store(OutputStream os) throws IOException {
+    state.store(os, null);
   }
 }
