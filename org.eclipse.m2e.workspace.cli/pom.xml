@@ -234,7 +234,7 @@
           <artifactId>maven-release-plugin</artifactId>
           <version>2.5.1</version>
           <configuration>
-            <updateReleaseInfo>true</updateReleaseInfo>
+            <localCheckout>true</localCheckout>
             <pushChanges>false</pushChanges>
             <tagNameFormat>m2e-workspace-@{project.version}</tagNameFormat>
           </configuration>
