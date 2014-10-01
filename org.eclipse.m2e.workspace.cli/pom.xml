@@ -285,6 +285,7 @@
             <configuration>
               <updateReleaseInfo>true</updateReleaseInfo>
               <pushChanges>false</pushChanges>
+              <tagNameFormat>m2e-workspace-@{project.version}</tagNameFormat>
             </configuration>
           </plugin>
           <plugin>
