@@ -237,6 +237,7 @@
             <localCheckout>true</localCheckout>
             <pushChanges>false</pushChanges>
             <tagNameFormat>m2e-workspace-@{project.version}</tagNameFormat>
+            <arguments>-Ptakari-release</arguments>
           </configuration>
         </plugin>
       </plugins>
@@ -272,7 +273,7 @@
     </profile>
 
     <profile>
-      <id>release</id>
+      <id>takari-release</id>
       <build>
         <plugins>
           <plugin>
