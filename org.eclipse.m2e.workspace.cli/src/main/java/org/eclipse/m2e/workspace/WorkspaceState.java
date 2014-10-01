@@ -14,8 +14,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 
@@ -95,7 +97,7 @@ public class WorkspaceState {
 
     String prefix = groupId + ':' + artifactId + ':';
 
-    List<String> versions = new ArrayList<String>();
+    Set<String> versions = new LinkedHashSet<String>();
     for(Object obj : state.keySet()) {
       String key = (String) obj;
       if(key.startsWith(prefix)) {
@@ -103,7 +105,7 @@ public class WorkspaceState {
       }
     }
 
-    return versions;
+    return new ArrayList<String>(versions);
   }
 
 }
