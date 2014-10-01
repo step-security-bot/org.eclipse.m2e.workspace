@@ -284,6 +284,7 @@
             <artifactId>maven-deploy-plugin</artifactId>
             <configuration>
               <updateReleaseInfo>true</updateReleaseInfo>
+              <pushChanges>false</pushChanges>
             </configuration>
           </plugin>
           <plugin>
