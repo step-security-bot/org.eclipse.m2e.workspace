@@ -262,6 +262,11 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <supportedProjectTypes>
+                <supportedProjectType>takari-jar</supportedProjectType>
+              </supportedProjectTypes>
+            </configuration>
           </plugin>
         </plugins>
       </build>
