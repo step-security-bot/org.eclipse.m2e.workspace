@@ -107,7 +107,7 @@
         <groupId>io.takari.maven.plugins</groupId>
         <artifactId>takari-lifecycle-plugin</artifactId>
         <extensions>true</extensions>
-        <version>1.10.0</version>
+        <version>1.11.4</version>
         <configuration>
           <compilerId>jdt</compilerId>
           <source>1.7</source>
@@ -116,16 +116,11 @@
           </archive>
           <sourceJar>true</sourceJar>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.eclipse.sisu</groupId>
-        <artifactId>sisu-maven-plugin</artifactId>
-        <version>0.3.0.M1</version>
         <executions>
           <execution>
-            <id>generate-index</id>
+            <id>sisu-index</id>
             <goals>
-              <goal>main-index</goal>
+              <goal>sisu-index</goal>
             </goals>
           </execution>
         </executions>
