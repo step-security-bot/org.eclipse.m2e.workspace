@@ -205,7 +205,7 @@
             <localCheckout>true</localCheckout>
             <pushChanges>false</pushChanges>
             <tagNameFormat>m2e-workspace-@{project.version}</tagNameFormat>
-            <arguments>-Ptakari-release</arguments>
+            <arguments>-Peclipse-sign,takari-release</arguments>
           </configuration>
         </plugin>
       </plugins>
