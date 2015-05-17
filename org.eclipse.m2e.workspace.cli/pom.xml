@@ -13,6 +13,16 @@
   </description>
   <url>https://www.eclipse.org/m2e</url>
 
+  <!--
+    ssh -L 31338:localhost:31338 <eclipse-username>@build.eclipse.org
+
+    maven-release-plugin does not create Signed-off-by git-commit line, 
+    which is required to push to git.eclipse.org repositories. need to 
+    manually version, build and tag releases.
+
+    mvn clean deploy -Dcbi.jarsigner.signerUrl=http://localhost:31338/sign -Peclipse-sign,maven-sign
+   -->
+
   <organization>
     <name>eclipse m2e</name>
     <url>https://www.eclipse.org/m2e</url>
@@ -200,7 +210,7 @@
             <localCheckout>true</localCheckout>
             <pushChanges>false</pushChanges>
             <tagNameFormat>m2e-workspace-@{project.version}</tagNameFormat>
-            <arguments>-Peclipse-sign,takari-release</arguments>
+            <arguments>-Peclipse-sign,maven-sign</arguments>
           </configuration>
         </plugin>
       </plugins>
@@ -267,7 +277,7 @@
       </build>
     </profile>
     <profile>
-      <id>takari-release</id>
+      <id>maven-sign</id>
       <build>
         <plugins>
           <plugin>
@@ -283,13 +293,6 @@
                 </goals>
               </execution>
             </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <skip>true</skip>
-            </configuration>
           </plugin>
         </plugins>
       </build>
