@@ -12,9 +12,11 @@ import java.io.File;
 import java.util.List;
 
 import org.codehaus.plexus.component.annotations.Component;
-import org.eclipse.m2e.workspace.WorkspaceState;
+
 import org.sonatype.aether.repository.WorkspaceReader;
 import org.sonatype.aether.repository.WorkspaceRepository;
+
+import org.eclipse.m2e.workspace.WorkspaceState2;
 
 
 /**
@@ -44,12 +46,12 @@ public final class Maven30WorkspaceReader implements WorkspaceReader {
   }
 
   public File findArtifact(org.sonatype.aether.artifact.Artifact artifact) {
-    return WorkspaceState.findArtifact(artifact.getGroupId(), artifact.getArtifactId(), artifact.getExtension(),
-        artifact.getClassifier(), artifact.getBaseVersion());
+    return WorkspaceState2.getInstance().findArtifact(artifact.getGroupId(), artifact.getArtifactId(),
+        artifact.getExtension(), artifact.getClassifier(), artifact.getBaseVersion());
   }
 
   public List<String> findVersions(org.sonatype.aether.artifact.Artifact artifact) {
-    return WorkspaceState.findVersions(artifact.getGroupId(), artifact.getArtifactId());
+    return WorkspaceState2.getInstance().findVersions(artifact.getGroupId(), artifact.getArtifactId());
   }
 
 }

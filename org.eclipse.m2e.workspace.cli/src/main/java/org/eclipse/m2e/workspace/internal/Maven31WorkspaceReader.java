@@ -17,7 +17,7 @@ import javax.inject.Singleton;
 import org.eclipse.aether.repository.WorkspaceReader;
 import org.eclipse.aether.repository.WorkspaceRepository;
 
-import org.eclipse.m2e.workspace.WorkspaceState;
+import org.eclipse.m2e.workspace.WorkspaceState2;
 
 
 /**
@@ -48,12 +48,12 @@ public final class Maven31WorkspaceReader implements WorkspaceReader {
   }
 
   public File findArtifact(org.eclipse.aether.artifact.Artifact artifact) {
-    return WorkspaceState.findArtifact(artifact.getGroupId(), artifact.getArtifactId(), artifact.getExtension(),
-        artifact.getClassifier(), artifact.getBaseVersion());
+    return WorkspaceState2.getInstance().findArtifact(artifact.getGroupId(), artifact.getArtifactId(),
+        artifact.getExtension(), artifact.getClassifier(), artifact.getBaseVersion());
   }
 
   public List<String> findVersions(org.eclipse.aether.artifact.Artifact artifact) {
-    return WorkspaceState.findVersions(artifact.getGroupId(), artifact.getArtifactId());
+    return WorkspaceState2.getInstance().findVersions(artifact.getGroupId(), artifact.getArtifactId());
   }
 
 }

@@ -8,104 +8,35 @@
 
 package org.eclipse.m2e.workspace;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 
 
 /**
  * @since 0.1
+ * @deprecated use {@link WorkspaceState2}
  */
 public class WorkspaceState {
-  public static final String SYSPROP_STATEFILE_LOCATION = "m2e.workspace.state";
+  public static final String SYSPROP_STATEFILE_LOCATION = WorkspaceState2.SYSPROP_STATEFILE_LOCATION;
 
-  private static Properties state;
-
-  public static synchronized Properties getState() {
-    if(state == null) {
-      state = new Properties();
-      try {
-        String location = System.getProperty(SYSPROP_STATEFILE_LOCATION);
-        if(location != null) {
-          BufferedInputStream in = new BufferedInputStream(new FileInputStream(location));
-          try {
-            state.load(in);
-          } finally {
-            in.close();
-          }
-        }
-      } catch(IOException e) {
-        // XXX log
-      }
-    }
-    return state;
+  public static Properties getState() {
+    return WorkspaceState2.getInstance().asProperties();
   }
 
   public static boolean resolveArtifact(Artifact artifact) {
-    String extension = artifact.getArtifactHandler().getExtension();
-    File file = findArtifact(artifact.getGroupId(), artifact.getArtifactId(), extension, artifact.getClassifier(),
-        artifact.getBaseVersion());
-
-    if(file == null) {
-      return false;
-    }
-
-    artifact.setFile(file);
-    artifact.setResolved(true);
-    return true;
+    return WorkspaceState2.getInstance().resolveArtifact(artifact);
   }
 
-  public static File findArtifact(String groupId, String artifactId, String type, String classifier, String baseVersion) {
-    Properties state = getState();
-    if(state == null) {
-      return null;
-    }
-
-    if(classifier == null) {
-      classifier = "";
-    }
-
-    String key = groupId + ':' + artifactId + ':' + type + ':' + classifier + ':' + baseVersion;
-    String value = state.getProperty(key);
-
-    if(value == null || value.length() == 0) {
-      return null;
-    }
-
-    File file = new File(value);
-    if(!file.exists()) {
-      return null;
-    }
-
-    return file;
+  public static File findArtifact(String groupId, String artifactId, String type, String classifier,
+      String baseVersion) {
+    return WorkspaceState2.getInstance().findArtifact(groupId, artifactId, type, classifier, baseVersion);
   }
 
   public static List<String> findVersions(String groupId, String artifactId) {
-    Properties state = getState();
-    if(state == null) {
-      return Collections.emptyList();
-    }
-
-    String prefix = groupId + ':' + artifactId + ':';
-
-    Set<String> versions = new LinkedHashSet<String>();
-    for(Object obj : state.keySet()) {
-      String key = (String) obj;
-      if(key.startsWith(prefix)) {
-        versions.add(key.substring(key.lastIndexOf(':') + 1));
-      }
-    }
-
-    return new ArrayList<String>(versions);
+    return WorkspaceState2.getInstance().findVersions(groupId, artifactId);
   }
 
 }

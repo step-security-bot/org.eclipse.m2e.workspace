@@ -13,21 +13,16 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Properties;
+import java.util.HashMap;
 
 
 /**
  * @since 0.1
  */
-public class MutableWorkspaceState {
-
-  private final Properties state;
+public class MutableWorkspaceState extends WorkspaceState2 {
 
   public MutableWorkspaceState() {
-    // allow workspace chaining,
-    // for example, m2e launches maven build, which launches maven plugin IT
-    // IT should see artifacts from its parent maven build reactor and from m2e workspace
-    state = new Properties(WorkspaceState.getState());
+    super(new HashMap<String, String>());
   }
 
   public void putPom(File pom, String groupId, String artifactId, String version) {
@@ -58,6 +53,6 @@ public class MutableWorkspaceState {
    * @since 0.2
    */
   public void store(OutputStream os) throws IOException {
-    state.store(os, null);
+    asProperties().store(os, null);
   }
 }
